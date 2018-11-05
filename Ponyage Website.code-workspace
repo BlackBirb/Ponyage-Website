@@ -1,0 +1,21 @@
+{
+    "folders": [
+        {
+            "name": "Client",
+            "path": "./client"
+        },
+        {
+            "name": "Data",
+            "path": "./data",
+        },
+        {
+            "name": "Server",
+            "path": "./server"
+        }
+    ],
+    "settings": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.detectIndentation": true
+    }
+}

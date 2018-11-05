@@ -1,0 +1,11 @@
+{
+  "name": "ponyage",
+  "version": "1.0.0",
+  "description": "A ponyage website",
+  "main": "./server/index.js",
+  "author": "BlackBird <BlackBirdBrony@wp.pl>",
+  "private": true,
+  "scripts": {
+    "start": "node ./server/index.js"
+  }
+}
