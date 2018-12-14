@@ -5,6 +5,7 @@ function Store() {
   const data = {
     playerCount: null,
     main: require("../../data/main.json"),
+    versions: require("../../data/version.json"),
     articles: require("../../data/articles.json")
   }
 
@@ -29,48 +30,6 @@ function Store() {
 
   return {
     data,
-    dataActions: {
-      getArticleID () {
-        let id = 0
-        data.articles.find(a => {
-          id = a.id > id ? a.id : id
-        })
-        return id
-      },
-      getArticleDateNow () {
-        return new Date().toISOString().split("T")[0]
-      },
-      addArticle(article = {}) {
-        if(!article.id) article.id = this.getArticleID() + 1
-        // data.articles.push(article)
-        let newFile = [
-          ...data.articles,
-          {
-            id: this.getArticleID(),
-            ...article,
-            date: this.getArticleDateNow()
-          }
-        ]
-        const string = JSON.stringify(newFile)
-        fs.writeFileSync('./data/articles.json', string, err => console.log(err))
-      },
-      removeArticle(id) {
-        const article = data.articles.find(a => a.id === id)
-        if(!article) return false
-        let newFile = data.articles.filter(a => a.id !== id)
-        for(const file of [ article.image, article.thumbnail ]) {
-          console.log(file)
-          if(file) 
-            fs.unlink(`./public/static/img/articles/${file}`, 
-             err => err ? console.log(`Error while deleting file "${file}": ${err}`) : null
-            )
-        }
-
-        const string = JSON.stringify(newFile)
-        fs.writeFileSync('./data/articles.json', string, err => console.log(err))
-        return true
-      }
-    },
     actions: Actions(data)
   }
 }

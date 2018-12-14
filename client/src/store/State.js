@@ -10,5 +10,6 @@ export default {
   downloadable: null,
   homeVideo: null,
   faq: [],
-  serverStatus: 'loading'
+  serverStatus: 'loading',
+  versionFile: null
 }

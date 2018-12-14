@@ -22,7 +22,7 @@ module.exports = {
       return res.status(400).json({ e: 'Invalid body'})
     console.log('new article',responseData)
 
-    store.dataActions.addArticle(responseData)
+    store.actions.article.add(responseData)
 
     res.status(200).json({
       success: true,
@@ -34,7 +34,7 @@ module.exports = {
       return res.status(400).json({ e: 'Invalid body' })
     const { id } = req.body
     console.log('remove article ',id)
-    let result = store.dataActions.removeArticle(id)
+    let result = store.actions.article.remove(id)
     
     if(result) {
       res.status(200).json({

@@ -53,5 +53,17 @@ export default {
       return
     }
     state.homeVideo = 'https://www.youtube.com/embed/' + payload
+  },
+  setVersionData (state, payload) {
+    if (!payload) {
+      state.versionFile = payload
+      return
+    }
+    const deepClone = {}
+    for (const arch of Object.keys(payload)) {
+      deepClone[arch] = Object.assign({}, payload[arch])
+    }
+
+    state.versionFile = deepClone
   }
 }

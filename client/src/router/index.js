@@ -4,7 +4,11 @@ import Home from '@/routes/Home'
 import Login from '@/routes/Login'
 import Register from '@/routes/Register'
 import Download from '@/routes/Download'
-import Dashboard from '@/routes/Dashboard'
+
+import Dashboard from '@/routes/Dashboard/Dashboard'
+import AddArticle from '@/routes/Dashboard/AddArticle'
+import VersionFile from '@/routes/Dashboard/VersionFile'
+
 import News from '@/routes/News'
 import FAQ from '@/routes/FAQ'
 import NotFound from '@/routes/NotFound'
@@ -26,7 +30,7 @@ function requireAuth (to, from, next) {
 function checkAuth (to, from, next) {
   if (!Store.state.logged) next()
   else next({
-    path: '/'
+    path: '/dashboard'
   })
 }
 
@@ -55,7 +59,19 @@ const router = new Router({
       path: '/dashboard',
       meta: title('Dashboard'),
       component: Dashboard,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      children: [
+        {
+          name: 'addArticle',
+          path: 'article',
+          component: AddArticle
+        },
+        {
+          name: 'editVersion',
+          path: 'version',
+          component: VersionFile
+        }
+      ]
     },
     {
       path: '/news',

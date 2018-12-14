@@ -146,5 +146,24 @@ export default {
         console.error('Webpage loading error!', err)
         commit('dataErrored')
       })
+  },
+  loadVersionFile ({ commit }) {
+    return api.loadVersionData()
+      .then(data => {
+        commit('setVersionData', data)
+      })
+      .catch((err) => {
+        console.error('Failed loading version file!', err)
+        commit('setVersionData', false)
+      })
+  },
+  updateVersionFile ({ commit }, payload) {
+    return api.updateVersionData(payload.data, payload.token)
+      .then(data => {
+        commit('setVersionData', data.updated)
+      })
+      .catch((err) => {
+        throw err // wtf?
+      })
   }
 }

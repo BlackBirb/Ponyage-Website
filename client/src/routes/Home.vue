@@ -21,7 +21,7 @@
               </h1>
               <div :class="
                 $vuetify.breakpoint.mdAndUp
-                  ? [ 'title', 'font-weight-regular', 'text-sm-right', 'my-3' ]
+                  ? [ 'title', 'font-weight-regular', 'my-3' ]
                   : [ 'header my-3' ]
                 ">
                 A seamless 2D MMORPG about colorful horses

@@ -23,8 +23,8 @@ export default {
         'Something broke',
         'No data for us',
         'Server responded with error',
-        'Couldn\'t load news',
-        'News bork!'
+        'Couldn\'t load this',
+        'Thing bork!'
       ]
     }
   },
@@ -35,7 +35,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

@@ -102,6 +102,33 @@ export function removeArticle (id, token) {
     .then(res => {
       if (!res.ok)
         throw new Error('Something went wrong, call BlackBird >.-.<')
-      res.json()
+      return res.json()
+    })
+}
+
+export function loadVersionData () {
+  return fetch('/api/version/json', {
+    method: 'GET'
+  })
+    .then(res => {
+      if (!res.ok)
+        throw new Error('Server responded with', res.status)
+      return res.json()
+    })
+}
+
+export function updateVersionData (data, token) {
+  return fetch('/api/version', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      authorization: token
+    },
+    body: JSON.stringify(data)
+  })
+    .then(res => {
+      if (!res.ok)
+        throw new Error('Failed to upload new versions')
+      return res.json()
     })
 }

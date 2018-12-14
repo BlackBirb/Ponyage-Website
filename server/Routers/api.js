@@ -67,4 +67,20 @@ api.delete('/articles/remove',
   middleware.authenticate,
   middleware.articles.remove)
 
+api.get("/version/:type?", (req, res) => {
+  if(req.params.type === 'json') 
+    return store.actions.version.json(req, res)
+
+  const newLine = '\n'
+  const separator = " "
+  const nullChar = ""
+
+  return store.actions.version.text(req, res, { newLine, separator, nullChar })
+})
+
+api.post('/version',
+  middleware.authenticate,
+  store.actions.version.update
+)
+
 module.exports = api
