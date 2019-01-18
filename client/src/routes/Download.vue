@@ -47,7 +47,7 @@ export default {
         'To create account type login and password you want and press <kbd>Create&Login</kbd> button<br />It\'s not instant so you might need to wait few seconds',
         'Log in with your login and password using the same <kbd>Create&Login</kbd> button',
         'Choose colors and manes for your character',
-        'Pick what perks you want, you can have up to 8 perks and value must be less or equal to 0',
+        'Pick what perks you want, you can have up to 14 perks and value must be less or equal to 0',
         'Press <kbd>Enter</kbd>',
         'Enjoy booping other ponies!',
         'If you still have questions ask on our discord'
