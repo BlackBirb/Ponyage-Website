@@ -1,21 +1,17 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
 import store from './store'
+import theme from './theme'
 // import registerServiceWorker from './registerServiceWorker'
+
+import './stylus/main.styl'
 
 import 'vuetify/dist/vuetify.min.css'
 
-Vue.config.productionTip = false
-
 Vue.use(Vuetify, {
-  theme: {
-    primary: '#536bc3',
-    secondary: '#5279c2'
-  }
+  theme
 })
 
 /* eslint-disable no-new */

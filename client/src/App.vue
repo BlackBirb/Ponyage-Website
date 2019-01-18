@@ -42,64 +42,55 @@ export default {
 }
 </script>
 
-<style>
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
+<style lang="stylus">
 
-.mouse-default {
-  cursor: default !important;
-}
+a
+  color: inherit
+  text-decoration: inherit
 
-.application.theme--dark {
-  background-color: #34393a !important;
-}
+.mouse-default
+  cursor: default !important
 
-.full-height {
-  height: 100%;
-}
+.relative
+  position: relative
 
-.column {
-  flex-direction: column;
-}
+.uppercase
+  text-transform: uppercase
 
-.navMargin {
-  margin-top: 32px;
-}
+.full-height
+  height: 100%
 
-.register-link {
-  font-size: 14px !important;
-  font-weight: 500;
-  color: white !important;
-  opacity: .5;
-}
-.register-link:hover {
-  opacity: 1;
-}
+.column
+  flex-direction: column
 
-.fix-image {
+.navMargin
+  margin-top: 32px
+
+.register-link
+  font-size: 14px !important
+  font-weight: 500
+  color: white !important
+  opacity: .5
+  &:hover
+    opacity: 1
+
+.fix-image
   object-fit: contain;
-  max-width: 100%;
-}
+  max-width: 100%
 
-.card-bg {
-  background-color: #383d3e !important;
-}
+.card-bg
+  background-color: #383d3e !important
 
-.n-color, .pagination__item, .pagination__navigation  {
-  background-color: #34363a !important;
-}
+.n-color, .pagination__item, .pagination__navigation
+  background-color: #34363a !important
 
-.n-header {
-  background-image: url('@/../assets/logoPlz.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-y: 30%;
-}
+.n-header
+  background-image: url('@/../assets/logoPlz.png')
+  background-size: cover
+  background-repeat: no-repeat
+  background-position-y: 30%
 
-.capitalize {
-  text-transform: capitalize;
-}
+.capitalize
+  text-transform: capitalize
 
 </style>

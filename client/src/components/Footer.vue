@@ -1,20 +1,32 @@
 <template>
-  <v-footer height="auto" :absolute="absolute">
-    <v-layout wrap>
-      <v-flex xs12 text-xs-center py-2 class="footer-color">
-        © {{ year }}
-      </v-flex>
-      <v-flex xs6 sm3 d-flex v-for="contact of contacts" :key="contact.id" class="footer-color">
-        <v-btn :href="contact.url" target="_blank" flat>
-          <v-icon v-if="contact.icon">{{ contact.icon }}</v-icon>
-          <span class="ml-2">{{ contact.title }}</span>
+  <v-footer height="auto" color="primary lighten-1" :absolute="absolute" :class="absolute ? '' : 'relative mt-3'">
+    <customBorder type="footer" />
+    <v-layout wrap text-xs-center justify-center>
+      <v-felx xs12 class="my-3">
+        <v-btn
+          v-for="contact of $store.state.contact" :key="contact.title"
+          large flat
+          :href="contact.url" target="_blank"
+        >
+          <v-icon v-if="contact.icon" size="46">{{ contact.icon }}</v-icon>
+          <span class="ml-3">{{ contact.title }}</span>
         </v-btn>
+      </v-felx>
+      <v-flex xs12>
+        <h5 class="body-1">© {{ year }}</h5>
+        <p class="caption grey--text text--lighten-1">
+          Designed by Szymon "SiMonk0" Furjan. Build with
+          <v-icon color="red" size="14">favorite</v-icon>
+          by BlackBird
+        </p>
       </v-flex>
     </v-layout>
   </v-footer>
 </template>
 
 <script>
+import customBorder from '@/components/CustomBorder'
+
 export default {
   name: 'b-footer',
   props: {
@@ -22,6 +34,9 @@ export default {
       type: Boolean,
       default: true
     }
+  },
+  components: {
+    customBorder
   },
   computed: {
     year () {

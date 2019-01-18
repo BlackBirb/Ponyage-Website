@@ -1,25 +1,33 @@
 <template>
-  <v-toolbar v-if="!$vuetify.breakpoint.smAndDown" class="transparent" :height="navHeight" @mouseover="changeSize(true)" @mouseout="changeSize(false)" flat fixed dense scroll-off-screen>
-    <v-toolbar-title class="mr-2">PonyAge</v-toolbar-title>
+  <!-- Desktop -->
+  <v-toolbar
+    v-if="!$vuetify.breakpoint.smAndDown"
+    color="transparent"
+    @mouseover="changeSize(true)" @mouseout="changeSize(false)"
+    flat fixed dense scroll-off-screen
+    :height="navHeight"
+  >
+    <!-- <customBorder :flipped='true' position='bottom' /> -->
+    <v-spacer />
     <v-btn v-for="route of routes" :key="route.path" :to="route.path" flat> {{ route.title }}</v-btn>
     <v-spacer />
-    <v-toolbar-items>
-      <v-layout px-4 align-center>
-        <span class="grey--text"> Server status: </span>
-        <div :class="[ 'nav-server-status-icon', statusClass ]" />
-        {{ statusText() }}
-      </v-layout>
-    </v-toolbar-items>
     <v-btn v-if="$store.state.logged" to="/dashboard" color="grey lighten-3" outline>
       {{ $store.state.username }}
     </v-btn>
+
   </v-toolbar>
-  <v-toolbar v-else>
+
+  <!-- Mobile -->
+  <v-toolbar v-else
+    color="primary"
+  >
     <v-btn icon class="hidden-xs-only" to="/">
       <v-icon>home</v-icon>
     </v-btn>
     <v-toolbar-title>PonyAge</v-toolbar-title>
     <v-spacer />
+
+    <!-- Status on mobile -->
     <v-toolbar-items v-if="!$vuetify.breakpoint.xsOnly">
       <v-layout px-4 align-center>
         <span class="grey--text"> Server status: </span>
@@ -27,6 +35,8 @@
         {{ statusText() }}
       </v-layout>
     </v-toolbar-items>
+
+    <!-- Status on smallest screen -->
     <v-toolbar-items v-else>
       <v-layout px-4 align-center>
         <span class="grey--text"> Status: </span>
@@ -34,6 +44,8 @@
         {{ statusText(true) }}
       </v-layout>
     </v-toolbar-items>
+
+    <!-- dropdown menu -->
     <v-menu>
       <v-btn icon slot="activator">
         <v-icon>menu</v-icon>
@@ -51,6 +63,8 @@
 </template>
 
 <script>
+import customBorder from '@/components/CustomBorder'
+
 export default {
   name: 'NavBar',
   data () {
@@ -65,6 +79,9 @@ export default {
         { path: '/recruiting', title: 'Recruiting' }
       ]
     }
+  },
+  components: {
+    customBorder
   },
   computed: {
     statusClass () {

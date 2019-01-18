@@ -74,7 +74,7 @@
         </v-card>
       </v-dialog>
     </v-container>
-    <b-footer/>
+    <b-footer :absolute="false"/>
   </v-content>
 </template>
 

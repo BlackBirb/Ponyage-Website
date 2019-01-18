@@ -1,7 +1,18 @@
 <template>
   <v-content>
     <section>
-      <v-jumbotron class="jumbotron_shadow" :src="require('@/assets/bg.jpg')" :height="windowHeight + 'px'">
+      <v-parallax :src="require('@/assets/bg.jpg')" :height="windowHeight">
+        <v-layout fill-height justify-center align-center class="lightbox">
+          <v-img
+            :src="require('@/assets/PonyAge-Chronicles-Logo.png')"
+            :height="$vuetify.breakpoint.xlOnly ? '640px' : $vuetify.breakpoint.mdAndUp ? '416px' : $vuetify.breakpoint.xsOnly ? '256px' : '384px'"
+            contain
+            class="floating"
+          />
+        </v-layout>
+      </v-parallax>
+
+      <v-jumbotron v-if="false" class="jumbotron_shadow" :src="require('@/assets/bg.jpg')" :height="windowHeight + 'px'">
         <v-container fill-height>
           <v-layout :class="{
             'align-center': true,
@@ -9,9 +20,6 @@
             'justify-end': $vuetify.breakpoint.mdAndUp,
             'justify-center': $vuetify.breakpoint.smOnly
           }">
-            <v-flex v-if="$store.state.homeVideo" xs12 md6 xl4 offset-xl2 px-1>
-              <iframe class="heck-you" :src="$store.state.homeVideo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </v-flex>
             <v-flex xs12 sm8 md5 offset-md1 xl4 offset-xl2 elevation-5 pa-3 text-xs-center home-card>
               <h1 :class="{
                   'display-3': $vuetify.breakpoint.smAndUp,
@@ -26,8 +34,8 @@
                 ">
                 A seamless 2D MMORPG about colorful horses
               </div>
-              <v-btn to="/download" color="primary">Play now!</v-btn>
-              <v-btn :href="$store.getters.discordURL" target="_blank" color="primary">
+              <v-btn to="/download" color="buttons">Play now!</v-btn>
+              <v-btn :href="$store.getters.discordURL" target="_blank" color="buttons">
                 <v-icon class="mr-2">
                   fab fa-discord
                 </v-icon>
@@ -38,23 +46,26 @@
         </v-container>
       </v-jumbotron>
     </section>
-    <section>
-      <v-layout home-content-card pt-5 mb-1 column text-xs-center>
-        <h2 class="flex display-1 mb-1">
-          PonyAge!
-        </h2>
-        <p>Quick Info:</p>
+    <section class="relative">
+      <customBorder :flipped="false" position="top"/>
+      <v-layout justify-center py-5>
+        <v-flex v-if="$store.state.homeVideo" xs12 md6 xl3 px-1>
+          <iframe class="heck-you" :src="$store.state.homeVideo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </v-flex>
       </v-layout>
-
       <v-layout v-for="(content, i) in contents" :key="content.id" home-content-card wrap py-4 px-2>
         <v-flex :class="genClass(i)">
-          <h3 class="headline mb-3">
-            {{ content.title }}
-          </h3><p>
-          {{ content.content }}</p>
+          <v-flex xs8 offset-xs2>
+            <h3 class="display-1 mb-5 grey--text text--darken-1 uppercase">
+              {{ content.title }}
+            </h3>
+            <p class="subheading">
+              {{ content.content }}
+            </p>
+          </v-flex>
         </v-flex>
         <v-flex :class="genClass(i, true)">
-          <img :src="content.image" class="fix-image home-image" alt="ImageExample" height="250px">
+          <v-img :src="content.image" alt="Game Image" class="home-image" height="250px" contain />
         </v-flex>
       </v-layout>
     </section>
@@ -64,6 +75,7 @@
 
 <script>
 import footer from '@/components/Footer'
+import customBorder from '@/components/CustomBorder'
 
 export default {
   name: 'Home',
@@ -75,39 +87,40 @@ export default {
           id: 1,
           title: 'The game!',
           content: 'Explore the world in a true MMORPG environment as your own character. Meet other players and group up against threats and foes.',
-          image: require('@/assets/Home1.png')
+          image: require('@/assets/NewHome1.png')
         },
         {
           id: 2,
           title: 'The grind!',
           content: 'Collect resources and complete tasks to craft your own gear. Or sell them to other players who need them more. Learn new spells, upgrade them for your own unique set of abilities!',
-          image: require('@/assets/Home2.png')
+          image: require('@/assets/NewHome1.png')
         },
         {
           id: 3,
           title: 'The PvP!',
           content: 'Prove yourself in the pvp arena, and prepare yourself for the 1v1 tournament! Both skill and determination will have a valuable impact.',
-          image: require('@/assets/Home3.png')
+          image: require('@/assets/NewHome1.png')
         },
         {
           id: 4,
           title: 'Fret the bosses',
           content: 'Some say that they were buffed to broken state... Be sure to team up before tackling them.',
-          image: require('@/assets/Home4.png')
+          image: require('@/assets/NewHome1.png')
         }
       ]
     }
   },
   methods: {
     genClass (index, image = false) {
-      return [ 'xs12', 'sm6', 'md5', 'px-1' ].concat(
+      return [ 'xs12', 'sm6', 'md5', 'px-5', 'text-xs-center' ].concat(
         (!(index % 2) + image) === 1
-          ? [ 'offset-md1', 'order-sm1' ]
-          : 'order-sm2'
+          ? [ 'offset-md1', 'order-sm1', 'text-md-right' ]
+          : [ 'order-sm2', 'text-md-left' ]
       )
     }
   },
   components: {
+    customBorder,
     'b-footer': footer
   }
 }
@@ -115,24 +128,37 @@ export default {
 
 <style>
 
+.lightbox {
+  box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px);
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(-5px) rotate(0.0001deg);
+  }
+  25% {
+    transform: translateY(2px) rotate(0.0001deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0.0001deg);
+  }
+  75% {
+    transform: translateY(0px) rotate(0.0001deg);
+  }
+  100% {
+    transform: translateY(-5px) rotate(0.0001deg);
+  }
+}
+
+.floating {
+  animation: floating 15s ease-in-out infinite;
+}
+
 .heck-you {
   object-fit: contain;
   width: 100%;
   height: 300px;
-}
-
-.jumbotron_shadow .v-jumbotron__background {
-  box-shadow:
-    inset 0 -6px 6px -3px rgba(0,0,0,.2),
-    inset 0 -10px 14px 1px rgba(0,0,0,.14),
-    inset 0 -4px 18px 3px rgba(0,0,0,.12),
-    inset 0 -3px 0px 0 #a18647,
-    inset 0 -6px 0px 0 #ffd776
-    !important;
-}
-
-.footer-color {
-  background-color: #252a2b;
 }
 
 .homeText {
@@ -159,16 +185,11 @@ export default {
   min-height: 100%;
 }
 
-.home-content-card:nth-child(odd) {
+.home-content-card:nth-child(even) {
   background-color: transparent !important;
 }
 
-.home-content-card:nth-child(even) {
-  background-color: #363b3c !important;
+.home-content-card:nth-child(odd) {
+  background-color: #00000010 !important;
 }
-
-.home-image {
-  border-radius: 2px;
-}
-
 </style>
